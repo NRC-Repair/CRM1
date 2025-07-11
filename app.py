@@ -1,79 +1,78 @@
 import streamlit as st
 
-# NRC-Design-Farben
+# Design/Branding
 PRIMARY = "#1B3556"
 ACCENT = "#F7C843"
-BG_OVERLAY = "rgba(27,53,86,0.82)"
-
-# NRC Logo und Hintergrund
+BG_OVERLAY = "rgba(255,255,255,0.83)"
 NRC_LOGO_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-logo-1.png"
-NRC_BG_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-background-dark-blur2.png"
+NRC_BG_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-background-light.jpg"
 
-# Login
-USER = "admin"
-PASSWORD = "1234"
-
-# Länder-Liste
+USER, PASSWORD = "admin", "1234"
 COUNTRIES = [
-    "Afghanistan", "Ägypten", "Albanien", "Algerien", "Andorra", "Angola", "Antigua und Barbuda", "Argentinien",
-    "Armenien", "Australien", "Österreich", "Aserbaidschan", "Bahamas", "Bahrain", "Bangladesch", "Barbados",
-    "Weißrussland", "Belgien", "Belize", "Benin", "Bhutan", "Bolivien", "Bosnien und Herzegowina", "Botswana",
-    "Brasilien", "Brunei", "Bulgarien", "Burkina Faso", "Burundi", "Kambodscha", "Kamerun", "Kanada", "Kap Verde",
-    "Zentralafrikanische Republik", "Tschad", "Chile", "China", "Kolumbien", "Komoren", "Kongo", "Costa Rica",
-    "Kroatien", "Kuba", "Zypern", "Tschechien", "Dänemark", "Dschibuti", "Dominica", "Dominikanische Republik",
-    "Ecuador", "El Salvador", "Äquatorialguinea", "Eritrea", "Estland", "Eswatini", "Äthiopien", "Fidschi",
-    "Finnland", "Frankreich", "Gabun", "Gambia", "Georgien", "Deutschland", "Ghana", "Griechenland", "Grenada",
-    "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Ungarn", "Island", "Indien", "Indonesien",
-    "Iran", "Irak", "Irland", "Israel", "Italien", "Jamaika", "Japan", "Jordanien", "Kasachstan", "Kenia", "Kiribati",
-    "Nordkorea", "Südkorea", "Kuwait", "Kirgisistan", "Laos", "Lettland", "Libanon", "Lesotho", "Liberia", "Libyen",
-    "Liechtenstein", "Litauen", "Luxemburg", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Malta",
-    "Marshallinseln", "Mauretanien", "Mauritius", "Mexiko", "Mikronesien", "Moldawien", "Monaco", "Mongolei",
-    "Montenegro", "Marokko", "Mosambik", "Myanmar", "Namibia", "Nauru", "Nepal", "Niederlande", "Neuseeland",
-    "Nicaragua", "Niger", "Nigeria", "Nordmazedonien", "Norwegen", "Oman", "Pakistan", "Palau", "Panama",
-    "Papua-Neuguinea", "Paraguay", "Peru", "Philippinen", "Polen", "Portugal", "Katar", "Rumänien", "Russland",
-    "Ruanda", "St. Kitts und Nevis", "St. Lucia", "St. Vincent und die Grenadinen", "Samoa", "San Marino",
-    "Sao Tomé und Príncipe", "Saudi-Arabien", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Singapur",
-    "Slowakei", "Slowenien", "Salomonen", "Somalia", "Südafrika", "Südsudan", "Spanien", "Sri Lanka", "Sudan",
-    "Suriname", "Schweden", "Schweiz", "Syrien", "Taiwan", "Tadschikistan", "Tansania", "Thailand", "Timor-Leste",
-    "Togo", "Tonga", "Trinidad und Tobago", "Tunesien", "Türkei", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine",
-    "Vereinigte Arabische Emirate", "Großbritannien", "USA", "Uruguay", "Usbekistan", "Vanuatu", "Vatikanstadt",
-    "Venezuela", "Vietnam", "Jemen", "Sambia", "Simbabwe"
+    "Österreich", "Deutschland", "Schweiz", "Türkei", "USA", "Frankreich", "Italien", "Spanien", "England",
+    "Polen", "Ungarn", "Kroatien", "Griechenland", "Niederlande", "Rumänien", "Serbien", "Bulgarien", "Dänemark",
+    "Tschechien", "Slowakei", "Slowenien", "Belgien", "Luxemburg", "Norwegen", "Finnland", "Schweden", "Portugal"
+    # ... gerne beliebig erweitern!
 ]
 
-# NRC DESIGN: Global CSS
-st.markdown(
-    f"""
-    <style>
-        body, .stApp {{
-            background: url({NRC_BG_URL}) no-repeat center center fixed;
-            background-size: cover;
-        }}
-        .nrc-overlay {{
-            background: {BG_OVERLAY};
-            border-radius: 24px;
-            padding: 2.5rem 2rem 2rem 2rem;
-            margin-top: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 6px 32px 0 rgba(20,40,80,0.25);
-            max-width: 560px;
-            margin-left: auto;
-            margin-right: auto;
-        }}
-        .required-label {{
-            color: #e53935 !important;
-            font-weight: 600;
-        }}
-        input:required:invalid, input.error-field {{
-            border: 2px solid #e53935 !important;
-            box-shadow: 0 0 2px #e53935 !important;
-            background: #ffdede !important;
-        }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# ---------- Apple-Style CSS ----------
+st.markdown(f"""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600;700&display=swap');
+body, .stApp {{
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: url('{NRC_BG_URL}') center/cover no-repeat fixed;
+}}
+.nrc-overlay {{
+  background: {BG_OVERLAY};
+  border-radius: 22px;
+  padding: 2.3rem 2.3rem 1.7rem 2.3rem;
+  max-width: 540px;
+  margin: 2rem auto 2rem auto;
+  box-shadow: 0 8px 36px 0 rgba(20,30,40,0.13);
+}}
+input, select, textarea {{
+  border: 1.2px solid #dee2e6;
+  border-radius: 13px;
+  padding: 0.7rem;
+  font-size: 1.07rem;
+  background: #fafdff;
+  margin-bottom: 0.15rem;
+  transition: border 0.18s, box-shadow 0.18s;
+}}
+input:focus, select:focus, textarea:focus {{
+  outline: none;
+  border-color: {PRIMARY};
+  box-shadow: 0 0 0 3px rgba(27,53,86,0.18);
+  background: #f0f6fc;
+}}
+.stButton>button, .stDownloadButton>button {{
+  background-color: {PRIMARY};
+  color: white;
+  border-radius: 12px;
+  padding: 0.7rem 1.15rem;
+  font-size: 1.07rem;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(25,45,65,0.09);
+  border: none;
+  margin-top: 0.2rem;
+}}
+.stButton>button:hover {{
+  background-color: {ACCENT};
+  color: #222;
+}}
+.error-field {{
+  border-color: #e53935 !important;
+  box-shadow: 0 0 0 2px rgba(229,57,53,0.16);
+  background: #fff1f1 !important;
+}}
+.stAlert {{
+  border-radius: 13px;
+}}
+</style>
+""", unsafe_allow_html=True)
+# -------------------------------------
 
-# Session-Status prüfen
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "page" not in st.session_state:
@@ -82,132 +81,113 @@ if "kunden" not in st.session_state:
     st.session_state.kunden = []
 
 def login():
-    st.image(NRC_LOGO_URL, width=180)
-    st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
-    st.markdown(f"<h2 style='color:{ACCENT}; margin-bottom:1.5rem; text-align:center;'>🔐 NRC-CRM Login</h2>", unsafe_allow_html=True)
-    username = st.text_input("Benutzername")
-    password = st.text_input("Passwort", type="password")
-    if st.button("Login", key="login", help="Mit deinen Zugangsdaten anmelden"):
-        if username == USER and password == PASSWORD:
+    st.image(NRC_LOGO_URL, width=142)
+    st.markdown('<div class="nrc-overlay">', unsafe_allow_html=True)
+    st.header("🔐 NRC-CRM Login")
+    user = st.text_input("Benutzername")
+    pwd = st.text_input("Passwort", type="password")
+    if st.button("Login"):
+        if user == USER and pwd == PASSWORD:
             st.session_state.logged_in = True
-            st.success("Login erfolgreich ✅")
+            st.session_state.page = "dashboard"
         else:
-            st.error("❌ Falsche Login-Daten")
+            st.error("Falsche Login-Daten")
     st.markdown("</div>", unsafe_allow_html=True)
 
 def dashboard():
-    st.image(NRC_LOGO_URL, width=180)
-    st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
-    st.markdown(f"<h2 style='color:{ACCENT};text-align:center'>📊 NRC-CRM Dashboard</h2>", unsafe_allow_html=True)
-    st.markdown("<div style='height:1rem'></div>", unsafe_allow_html=True)
-    st.write("Willkommen bei deinem **NRC Notebook Repair Corner CRM!** Wähle eine Aktion aus:")
+    st.image(NRC_LOGO_URL, width=142)
+    st.markdown('<div class="nrc-overlay">', unsafe_allow_html=True)
+    st.header("📊 Dashboard")
+    st.write("Willkommen im stilvollen NRC-CRM. Wähle eine Aktion:")
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("➕ Neuer Servicefall", key="btn-neu"):
+        if st.button("➕ Neuer Servicefall"):
             st.session_state.page = "neuer_servicefall"
-        if st.button("🔧 Alle Reparaturen", key="btn-alle"):
+        if st.button("🔧 Alle Reparaturen"):
             st.session_state.page = "alle_reparaturen"
-        if st.button("✅ Beendete Reparaturen", key="btn-beendet"):
-            st.session_state.page = "beendete_reparaturen"
     with col2:
-        if st.button("📊 Übersicht", key="btn-ueber"):
-            st.session_state.page = "uebersicht"
-        if st.button("🕒 Offene Reparaturen", key="btn-offen"):
-            st.session_state.page = "offene_reparaturen"
-        if st.button("💰 Heutiger Umsatz", key="btn-umsatz"):
-            st.session_state.page = "umsatz"
+        if st.button("🚪 Logout"):
+            st.session_state.logged_in = False
+            st.session_state.page = "dashboard"
     st.markdown("</div>", unsafe_allow_html=True)
 
 def neuer_servicefall():
-    st.image(NRC_LOGO_URL, width=180)
-    st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
-    st.markdown(f"<h2 style='color:{ACCENT};text-align:center'>➕ Neuer Servicefall</h2>", unsafe_allow_html=True)
-    st.write("**Bitte fülle alle mit * markierten Felder aus.**")
-
-    # Fehlermeldung-Logik
-    error = False
-    submitted = st.session_state.get('submitted', False)
+    st.image(NRC_LOGO_URL, width=142)
+    st.markdown('<div class="nrc-overlay">', unsafe_allow_html=True)
+    st.header("➕ Neuer Servicefall")
+    st.write("**Pflichtfelder sind mit * markiert.**")
+    # State zur Fehleranzeige
+    if "submitted" not in st.session_state:
+        st.session_state["submitted"] = False
+    error_fields = []
     name = st.text_input("Name *", key="name")
     email = st.text_input("E-Mail *", key="email")
-    phone = st.text_input("Telefonnummer *", key="phone")
-    company = st.text_input("Firma (optional)", key="company")
-    street = st.text_input("Straße & Hausnummer", key="street")
-    postal_code = st.text_input("PLZ", key="postal_code")
-    city = st.text_input("Ort", key="city")
+    phone = st.text_input("Telefon *", key="phone")
+    company = st.text_input("Firma", key="company")
     country = st.selectbox("Land", COUNTRIES, key="country")
-
-    if st.button("Speichern", key="btn-save"):
-        st.session_state['submitted'] = True
-        error_fields = []
-        if not name.strip():
-            error = True
-            error_fields.append("Name")
-        if not email.strip():
-            error = True
-            error_fields.append("E-Mail")
-        if not phone.strip():
-            error = True
-            error_fields.append("Telefonnummer")
-        if error:
-            st.error("Bitte fülle alle erforderlichen Felder aus: " + ", ".join(error_fields))
+    if st.button("Speichern"):
+        st.session_state["submitted"] = True
+        # Pflichtfeldprüfung
+        for fld, val in [("Name", name), ("E-Mail", email), ("Telefon", phone)]:
+            if not val.strip():
+                error_fields.append(fld)
+        if error_fields:
+            st.error("Bitte ausfüllen: " + ", ".join(error_fields))
+            # JS zur Markierung der leeren Felder
+            st.markdown(f"""
+            <script>
+            for (const label of document.querySelectorAll('label')) {{
+                if ({'"Name *"' in error_fields}) {{
+                    if (label.textContent.includes("Name *")) {{
+                        let input = label.parentElement.querySelector('input');
+                        if (input && input.value === "") input.classList.add('error-field');
+                    }}
+                }}
+                if ({'"E-Mail *"' in error_fields}) {{
+                    if (label.textContent.includes("E-Mail *")) {{
+                        let input = label.parentElement.querySelector('input');
+                        if (input && input.value === "") input.classList.add('error-field');
+                    }}
+                }}
+                if ({'"Telefon *"' in error_fields}) {{
+                    if (label.textContent.includes("Telefon *")) {{
+                        let input = label.parentElement.querySelector('input');
+                        if (input && input.value === "") input.classList.add('error-field');
+                    }}
+                }}
+            }}
+            </script>
+            """, unsafe_allow_html=True)
         else:
+            st.success(f"Kunde '{name}' gespeichert ✅")
             st.session_state.kunden.append({
                 "Name": name,
                 "E-Mail": email,
                 "Telefon": phone,
                 "Firma": company,
-                "Straße": street,
-                "PLZ": postal_code,
-                "Ort": city,
                 "Land": country
             })
-            st.success(f"Servicefall für '{name}' gespeichert ✅")
-            # Felder leeren
-            for k in ["name", "email", "phone", "company", "street", "postal_code", "city"]:
+            # Felder leeren:
+            for k in ["name", "email", "phone", "company"]:
                 st.session_state[k] = ""
-            st.session_state['submitted'] = False
-
-    # Pflichtfelder rot umrahmen, wenn leer & gespeichert wurde versucht
-    if st.session_state.get('submitted', False):
-        js = """
-        <script>
-        for (const label of document.querySelectorAll('label')) {
-            if (label.textContent.includes("Name *")) {
-                let input = label.parentElement.querySelector('input');
-                if (input && input.value === "") input.classList.add('error-field');
-            }
-            if (label.textContent.includes("E-Mail *")) {
-                let input = label.parentElement.querySelector('input');
-                if (input && input.value === "") input.classList.add('error-field');
-            }
-            if (label.textContent.includes("Telefonnummer *")) {
-                let input = label.parentElement.querySelector('input');
-                if (input && input.value === "") input.classList.add('error-field');
-            }
-        }
-        </script>
-        """
-        st.markdown(js, unsafe_allow_html=True)
-
-    if st.button("🔙 Zurück zum Dashboard", key="btn-back"):
+            st.session_state["submitted"] = False
+    if st.button("🔙 Zurück"):
         st.session_state.page = "dashboard"
-        st.session_state['submitted'] = False
+        st.session_state["submitted"] = False
     st.markdown("</div>", unsafe_allow_html=True)
 
 def alle_reparaturen():
-    st.image(NRC_LOGO_URL, width=180)
-    st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
-    st.markdown(f"<h2 style='color:{ACCENT};text-align:center'>🔧 Alle Reparaturen</h2>", unsafe_allow_html=True)
+    st.image(NRC_LOGO_URL, width=142)
+    st.markdown('<div class="nrc-overlay">', unsafe_allow_html=True)
+    st.header("🔧 Alle Reparaturen")
     if st.session_state.kunden:
-        st.write("**Gespeicherte Servicefälle:**")
         st.table(st.session_state.kunden)
     else:
-        st.info("Noch keine Servicefälle erfasst.")
-    if st.button("🔙 Zurück zum Dashboard", key="btn-back2"):
+        st.info("Keine Einträge vorhanden.")
+    if st.button("🔙 Zurück"):
         st.session_state.page = "dashboard"
     st.markdown("</div>", unsafe_allow_html=True)
 
-# App starten
 if not st.session_state.logged_in:
     login()
 else:
