@@ -1,77 +1,99 @@
 import streamlit as st
 
-# Design/Branding
-PRIMARY = "#1B3556"
-ACCENT = "#F7C843"
-BG_OVERLAY = "rgba(255,255,255,0.83)"
+# Farben & Branding
+PRIMARY = "#F7C843"     # NRC Gold
+BG_COLOR = "#111111"    # Tiefschwarz
+TEXT_COLOR = "#ffffff"  # Weiß
 NRC_LOGO_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-logo-1.png"
-NRC_BG_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-background-light.jpg"
 
 USER, PASSWORD = "admin", "1234"
 COUNTRIES = [
     "Österreich", "Deutschland", "Schweiz", "Türkei", "USA", "Frankreich", "Italien", "Spanien", "England",
     "Polen", "Ungarn", "Kroatien", "Griechenland", "Niederlande", "Rumänien", "Serbien", "Bulgarien", "Dänemark",
     "Tschechien", "Slowakei", "Slowenien", "Belgien", "Luxemburg", "Norwegen", "Finnland", "Schweden", "Portugal"
-    # ... gerne beliebig erweitern!
+    # beliebig erweiterbar!
 ]
 
-# ---------- Apple-Style CSS ----------
+# ------------- Modern Dark Apple-Style CSS -------------
 st.markdown(f"""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600;700&display=swap');
 body, .stApp {{
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  background: url('{NRC_BG_URL}') center/cover no-repeat fixed;
+    background: {BG_COLOR} !important;
+    color: {TEXT_COLOR} !important;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
 }}
 .nrc-overlay {{
-  background: {BG_OVERLAY};
-  border-radius: 22px;
-  padding: 2.3rem 2.3rem 1.7rem 2.3rem;
-  max-width: 540px;
-  margin: 2rem auto 2rem auto;
-  box-shadow: 0 8px 36px 0 rgba(20,30,40,0.13);
+    background: rgba(20,20,22,0.93);
+    border-radius: 22px;
+    padding: 2.3rem 2.3rem 1.7rem 2.3rem;
+    max-width: 540px;
+    margin: 2rem auto 2rem auto;
+    box-shadow: 0 8px 36px 0 rgba(0,0,0,0.32);
+    color: {TEXT_COLOR};
+}}
+h1, h2, h3, h4, h5, h6, .stHeader, .stTitle, .stMarkdown, label, p, span, .stAlert, .stTable, .stDataFrame {{
+    color: {TEXT_COLOR} !important;
 }}
 input, select, textarea {{
-  border: 1.2px solid #dee2e6;
-  border-radius: 13px;
-  padding: 0.7rem;
-  font-size: 1.07rem;
-  background: #fafdff;
-  margin-bottom: 0.15rem;
-  transition: border 0.18s, box-shadow 0.18s;
+    background: #222 !important;
+    color: {TEXT_COLOR} !important;
+    border: 1.3px solid #444;
+    border-radius: 13px;
+    padding: 0.7rem;
+    font-size: 1.07rem;
+    margin-bottom: 0.15rem;
 }}
 input:focus, select:focus, textarea:focus {{
-  outline: none;
-  border-color: {PRIMARY};
-  box-shadow: 0 0 0 3px rgba(27,53,86,0.18);
-  background: #f0f6fc;
+    outline: none;
+    border-color: {PRIMARY};
+    box-shadow: 0 0 0 3px rgba(247,200,67,0.13);
+    background: #222 !important;
 }}
 .stButton>button, .stDownloadButton>button {{
-  background-color: {PRIMARY};
-  color: white;
-  border-radius: 12px;
-  padding: 0.7rem 1.15rem;
-  font-size: 1.07rem;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(25,45,65,0.09);
-  border: none;
-  margin-top: 0.2rem;
+    background-color: {PRIMARY};
+    color: #222 !important;
+    border-radius: 12px;
+    padding: 0.7rem 1.15rem;
+    font-size: 1.07rem;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(30,25,5,0.19);
+    border: none;
+    margin-top: 0.3rem;
 }}
 .stButton>button:hover {{
-  background-color: {ACCENT};
-  color: #222;
+    background-color: #fffbe2;
+    color: #111 !important;
 }}
 .error-field {{
-  border-color: #e53935 !important;
-  box-shadow: 0 0 0 2px rgba(229,57,53,0.16);
-  background: #fff1f1 !important;
+    border-color: #e53935 !important;
+    box-shadow: 0 0 0 2px rgba(229,57,53,0.15);
+    background: #402020 !important;
 }}
 .stAlert {{
-  border-radius: 13px;
+    border-radius: 13px;
+}}
+/* Logo oben mittig */
+.nrc-logo {{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 1.0rem;
+    width: 128px;
+}}
+.yurt-header {{
+    color: {TEXT_COLOR} !important;
+    text-align: center;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 2.3rem;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    margin-top: 1.1rem;
+    margin-bottom: 0.7rem;
 }}
 </style>
 """, unsafe_allow_html=True)
-# -------------------------------------
+# -------------------------------------------------------
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -80,8 +102,12 @@ if "page" not in st.session_state:
 if "kunden" not in st.session_state:
     st.session_state.kunden = []
 
+def header_area():
+    st.markdown(f'<div class="yurt-header">Yurt/BDMC</div>', unsafe_allow_html=True)
+    st.markdown(f'<img src="{NRC_LOGO_URL}" class="nrc-logo"/>', unsafe_allow_html=True)
+
 def login():
-    st.image(NRC_LOGO_URL, width=142)
+    header_area()
     st.markdown('<div class="nrc-overlay">', unsafe_allow_html=True)
     st.header("🔐 NRC-CRM Login")
     user = st.text_input("Benutzername")
@@ -95,10 +121,10 @@ def login():
     st.markdown("</div>", unsafe_allow_html=True)
 
 def dashboard():
-    st.image(NRC_LOGO_URL, width=142)
+    header_area()
     st.markdown('<div class="nrc-overlay">', unsafe_allow_html=True)
     st.header("📊 Dashboard")
-    st.write("Willkommen im stilvollen NRC-CRM. Wähle eine Aktion:")
+    st.write("Willkommen im NRC-CRM. Wähle eine Aktion:")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("➕ Neuer Servicefall"):
@@ -112,11 +138,10 @@ def dashboard():
     st.markdown("</div>", unsafe_allow_html=True)
 
 def neuer_servicefall():
-    st.image(NRC_LOGO_URL, width=142)
+    header_area()
     st.markdown('<div class="nrc-overlay">', unsafe_allow_html=True)
     st.header("➕ Neuer Servicefall")
     st.write("**Pflichtfelder sind mit * markiert.**")
-    # State zur Fehleranzeige
     if "submitted" not in st.session_state:
         st.session_state["submitted"] = False
     error_fields = []
@@ -127,7 +152,6 @@ def neuer_servicefall():
     country = st.selectbox("Land", COUNTRIES, key="country")
     if st.button("Speichern"):
         st.session_state["submitted"] = True
-        # Pflichtfeldprüfung
         for fld, val in [("Name", name), ("E-Mail", email), ("Telefon", phone)]:
             if not val.strip():
                 error_fields.append(fld)
@@ -167,7 +191,6 @@ def neuer_servicefall():
                 "Firma": company,
                 "Land": country
             })
-            # Felder leeren:
             for k in ["name", "email", "phone", "company"]:
                 st.session_state[k] = ""
             st.session_state["submitted"] = False
@@ -177,7 +200,7 @@ def neuer_servicefall():
     st.markdown("</div>", unsafe_allow_html=True)
 
 def alle_reparaturen():
-    st.image(NRC_LOGO_URL, width=142)
+    header_area()
     st.markdown('<div class="nrc-overlay">', unsafe_allow_html=True)
     st.header("🔧 Alle Reparaturen")
     if st.session_state.kunden:
