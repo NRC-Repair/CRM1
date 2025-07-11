@@ -5,15 +5,15 @@ PRIMARY = "#1B3556"   # NRC Blau
 ACCENT = "#F7C843"    # NRC Gold
 BG_OVERLAY = "rgba(27,53,86,0.82)"  # halbtransparentes Blau
 
-# NRC Logo (transparentes PNG ideal!)
+# NRC Logo und Hintergrund
 NRC_LOGO_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-logo-1.png"
-NRC_BG_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-background-dark-blur2.png"  # z.B. aus deiner Webseite. Alternativ Pixabay/BG nach Wahl.
+NRC_BG_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-background-dark-blur2.png"
 
 # Dummy Login-Daten
 USER = "admin"
 PASSWORD = "1234"
 
-# Alle Länder der Welt (ISO-Liste)
+# Alle Länder der Welt
 COUNTRIES = [
     "Afghanistan", "Ägypten", "Albanien", "Algerien", "Andorra", "Angola", "Antigua und Barbuda", "Argentinien",
     "Armenien", "Australien", "Österreich", "Aserbaidschan", "Bahamas", "Bahrain", "Bangladesch", "Barbados",
@@ -40,7 +40,7 @@ COUNTRIES = [
     "Venezuela", "Vietnam", "Jemen", "Sambia", "Simbabwe"
 ]
 
-# ==== NRC DESIGN: Global CSS ====
+# === NRC DESIGN: Global CSS ===
 st.markdown(
     f"""
     <style>
@@ -58,13 +58,6 @@ st.markdown(
             max-width: 560px;
             margin-left: auto;
             margin-right: auto;
-        }}
-        .nrc-logo {{
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 2rem;
-            width: 180px;
         }}
         .nrc-btn button {{
             background: linear-gradient(90deg, {ACCENT} 50%, {PRIMARY} 100%) !important;
@@ -103,7 +96,7 @@ if "kunden" not in st.session_state:
     st.session_state.kunden = []
 
 def login():
-    st.markdown(f'<img src="{NRC_LOGO_URL}" class="nrc-logo"/>', unsafe_allow_html=True)
+    st.image(NRC_LOGO_URL, width=180)
     st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
     st.markdown(f"<h2 style='color:{ACCENT}; margin-bottom:1.5rem; text-align:center;'>🔐 NRC-CRM Login</h2>", unsafe_allow_html=True)
     username = st.text_input("Benutzername")
@@ -117,7 +110,7 @@ def login():
     st.markdown("</div>", unsafe_allow_html=True)
 
 def dashboard():
-    st.markdown(f'<img src="{NRC_LOGO_URL}" class="nrc-logo"/>', unsafe_allow_html=True)
+    st.image(NRC_LOGO_URL, width=180)
     st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
     st.markdown(f"<h2 style='color:{ACCENT};text-align:center'>📊 NRC-CRM Dashboard</h2>", unsafe_allow_html=True)
     st.markdown("<div style='height:1rem'></div>", unsafe_allow_html=True)
@@ -140,7 +133,7 @@ def dashboard():
     st.markdown("</div>", unsafe_allow_html=True)
 
 def neuer_servicefall():
-    st.markdown(f'<img src="{NRC_LOGO_URL}" class="nrc-logo"/>', unsafe_allow_html=True)
+    st.image(NRC_LOGO_URL, width=180)
     st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
     st.markdown(f"<h2 style='color:{ACCENT};text-align:center'>➕ Neuer Servicefall</h2>", unsafe_allow_html=True)
     st.write("Erfasse hier die Kundendaten für einen neuen Servicefall:")
@@ -172,7 +165,7 @@ def neuer_servicefall():
     st.markdown("</div>", unsafe_allow_html=True)
 
 def alle_reparaturen():
-    st.markdown(f'<img src="{NRC_LOGO_URL}" class="nrc-logo"/>', unsafe_allow_html=True)
+    st.image(NRC_LOGO_URL, width=180)
     st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
     st.markdown(f"<h2 style='color:{ACCENT};text-align:center'>🔧 Alle Reparaturen</h2>", unsafe_allow_html=True)
     if st.session_state.kunden:
