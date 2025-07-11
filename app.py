@@ -1,9 +1,8 @@
 import streamlit as st
 
-# Farben & Branding
-PRIMARY = "#F7C843"     # NRC Gold
-BG_COLOR = "#111111"    # Tiefschwarz
-TEXT_COLOR = "#ffffff"  # Weiß
+PRIMARY = "#F7C843"         # NRC Gold
+BG_COLOR = "#2A2D32"        # Anthrazitmetall
+TEXT_COLOR = "#ffffff"
 NRC_LOGO_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-logo-1.png"
 
 USER, PASSWORD = "admin", "1234"
@@ -14,7 +13,7 @@ COUNTRIES = [
     # beliebig erweiterbar!
 ]
 
-# ------------- Modern Dark Apple-Style CSS -------------
+# --------- Modern Anthracite Metal Apple-Style CSS ---------
 st.markdown(f"""
 <style>
 body, .stApp {{
@@ -23,21 +22,21 @@ body, .stApp {{
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
 }}
 .nrc-overlay {{
-    background: rgba(20,20,22,0.93);
+    background: rgba(36,37,40,0.96);
     border-radius: 22px;
     padding: 2.3rem 2.3rem 1.7rem 2.3rem;
     max-width: 540px;
     margin: 2rem auto 2rem auto;
-    box-shadow: 0 8px 36px 0 rgba(0,0,0,0.32);
+    box-shadow: 0 8px 36px 0 rgba(0,0,0,0.28);
     color: {TEXT_COLOR};
 }}
 h1, h2, h3, h4, h5, h6, .stHeader, .stTitle, .stMarkdown, label, p, span, .stAlert, .stTable, .stDataFrame {{
     color: {TEXT_COLOR} !important;
 }}
 input, select, textarea {{
-    background: #222 !important;
+    background: #36383a !important;
     color: {TEXT_COLOR} !important;
-    border: 1.3px solid #444;
+    border: 1.3px solid #555;
     border-radius: 13px;
     padding: 0.7rem;
     font-size: 1.07rem;
@@ -47,7 +46,7 @@ input:focus, select:focus, textarea:focus {{
     outline: none;
     border-color: {PRIMARY};
     box-shadow: 0 0 0 3px rgba(247,200,67,0.13);
-    background: #222 !important;
+    background: #484b4f !important;
 }}
 .stButton>button, .stDownloadButton>button {{
     background-color: {PRIMARY};
@@ -72,7 +71,6 @@ input:focus, select:focus, textarea:focus {{
 .stAlert {{
     border-radius: 13px;
 }}
-/* Logo oben mittig */
 .nrc-logo {{
     display: block;
     margin-left: auto;
@@ -110,14 +108,17 @@ def login():
     header_area()
     st.markdown('<div class="nrc-overlay">', unsafe_allow_html=True)
     st.header("🔐 NRC-CRM Login")
-    user = st.text_input("Benutzername")
-    pwd = st.text_input("Passwort", type="password")
-    if st.button("Login"):
-        if user == USER and pwd == PASSWORD:
+    # Login als Form (ENTER auslösen möglich)
+    def do_login():
+        if st.session_state['user'] == USER and st.session_state['pwd'] == PASSWORD:
             st.session_state.logged_in = True
             st.session_state.page = "dashboard"
         else:
             st.error("Falsche Login-Daten")
+    with st.form(key="loginform", clear_on_submit=False):
+        user = st.text_input("Benutzername", key='user')
+        pwd = st.text_input("Passwort", type="password", key='pwd')
+        submitted = st.form_submit_button("Login", on_click=do_login)
     st.markdown("</div>", unsafe_allow_html=True)
 
 def dashboard():
@@ -157,7 +158,6 @@ def neuer_servicefall():
                 error_fields.append(fld)
         if error_fields:
             st.error("Bitte ausfüllen: " + ", ".join(error_fields))
-            # JS zur Markierung der leeren Felder
             st.markdown(f"""
             <script>
             for (const label of document.querySelectorAll('label')) {{
