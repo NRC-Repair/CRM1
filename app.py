@@ -1,5 +1,14 @@
 import streamlit as st
 
+# NRC-Farben
+PRIMARY = "#1B3556"   # NRC Blau
+ACCENT = "#F7C843"    # NRC Gold
+BG_OVERLAY = "rgba(27,53,86,0.82)"  # halbtransparentes Blau
+
+# NRC Logo (transparentes PNG ideal!)
+NRC_LOGO_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-logo-1.png"
+NRC_BG_URL = "https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-background-dark-blur2.png"  # z.B. aus deiner Webseite. Alternativ Pixabay/BG nach Wahl.
+
 # Dummy Login-Daten
 USER = "admin"
 PASSWORD = "1234"
@@ -31,6 +40,60 @@ COUNTRIES = [
     "Venezuela", "Vietnam", "Jemen", "Sambia", "Simbabwe"
 ]
 
+# ==== NRC DESIGN: Global CSS ====
+st.markdown(
+    f"""
+    <style>
+        body, .stApp {{
+            background: url({NRC_BG_URL}) no-repeat center center fixed;
+            background-size: cover;
+        }}
+        .nrc-overlay {{
+            background: {BG_OVERLAY};
+            border-radius: 24px;
+            padding: 2.5rem 2rem 2rem 2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 32px 0 rgba(20,40,80,0.25);
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }}
+        .nrc-logo {{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2rem;
+            width: 180px;
+        }}
+        .nrc-btn button {{
+            background: linear-gradient(90deg, {ACCENT} 50%, {PRIMARY} 100%) !important;
+            color: #142238 !important;
+            border-radius: 1.5rem !important;
+            font-weight: 700 !important;
+            font-size: 1.1rem !important;
+            margin-bottom: 0.5rem !important;
+        }}
+        .stTextInput > div > input, .stTextArea > div > textarea, .stSelectbox > div > div {{
+            background: #eef4fa77;
+            color: #222;
+            border-radius: 0.8rem;
+        }}
+        .stTable, .stDataFrame {{
+            background: #fff8;
+            border-radius: 1.2rem;
+        }}
+        .stAlert {{
+            border-radius: 1rem !important;
+        }}
+        .stSuccess, .stError, .stInfo {{
+            font-size: 1.09rem;
+        }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Session-Status prüfen
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -40,39 +103,46 @@ if "kunden" not in st.session_state:
     st.session_state.kunden = []
 
 def login():
-    st.title("🔐 NRC-CRM Login")
+    st.markdown(f'<img src="{NRC_LOGO_URL}" class="nrc-logo"/>', unsafe_allow_html=True)
+    st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color:{ACCENT}; margin-bottom:1.5rem; text-align:center;'>🔐 NRC-CRM Login</h2>", unsafe_allow_html=True)
     username = st.text_input("Benutzername")
     password = st.text_input("Passwort", type="password")
-    if st.button("Login"):
+    if st.button("Login", key="login", help="Mit deinen Zugangsdaten anmelden"):
         if username == USER and password == PASSWORD:
             st.session_state.logged_in = True
             st.success("Login erfolgreich ✅")
         else:
             st.error("❌ Falsche Login-Daten")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 def dashboard():
-    st.image("https://notebook-repair-corner.at/wp-content/uploads/2022/03/nrc-logo-1.png", width=200)
-    st.title("📊 NRC-CRM Dashboard")
-    st.write("Willkommen bei deinem NRC Notebook Repair Corner CRM!")
-
+    st.markdown(f'<img src="{NRC_LOGO_URL}" class="nrc-logo"/>', unsafe_allow_html=True)
+    st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color:{ACCENT};text-align:center'>📊 NRC-CRM Dashboard</h2>", unsafe_allow_html=True)
+    st.markdown("<div style='height:1rem'></div>", unsafe_allow_html=True)
+    st.write("Willkommen bei deinem **NRC Notebook Repair Corner CRM!** Wähle eine Aktion aus:")
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("➕ Neuer Servicefall"):
+        if st.button("➕ Neuer Servicefall", key="btn-neu"):
             st.session_state.page = "neuer_servicefall"
-        if st.button("🔧 Alle Reparaturen"):
+        if st.button("🔧 Alle Reparaturen", key="btn-alle"):
             st.session_state.page = "alle_reparaturen"
-        if st.button("✅ Beendete Reparaturen"):
+        if st.button("✅ Beendete Reparaturen", key="btn-beendet"):
             st.session_state.page = "beendete_reparaturen"
     with col2:
-        if st.button("📊 Übersicht"):
+        if st.button("📊 Übersicht", key="btn-ueber"):
             st.session_state.page = "uebersicht"
-        if st.button("🕒 Offene Reparaturen"):
+        if st.button("🕒 Offene Reparaturen", key="btn-offen"):
             st.session_state.page = "offene_reparaturen"
-        if st.button("💰 Heutiger Umsatz"):
+        if st.button("💰 Heutiger Umsatz", key="btn-umsatz"):
             st.session_state.page = "umsatz"
+    st.markdown("</div>", unsafe_allow_html=True)
 
 def neuer_servicefall():
-    st.title("➕ Neuer Servicefall")
+    st.markdown(f'<img src="{NRC_LOGO_URL}" class="nrc-logo"/>', unsafe_allow_html=True)
+    st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color:{ACCENT};text-align:center'>➕ Neuer Servicefall</h2>", unsafe_allow_html=True)
     st.write("Erfasse hier die Kundendaten für einen neuen Servicefall:")
 
     name = st.text_input("Name")
@@ -84,7 +154,7 @@ def neuer_servicefall():
     city = st.text_input("Ort")
     country = st.selectbox("Land", COUNTRIES)
 
-    if st.button("Speichern"):
+    if st.button("Speichern", key="btn-save"):
         st.session_state.kunden.append({
             "Name": name,
             "E-Mail": email,
@@ -97,14 +167,22 @@ def neuer_servicefall():
         })
         st.success(f"Servicefall für '{name}' gespeichert ✅")
 
-    if st.button("🔙 Zurück zum Dashboard"):
+    if st.button("🔙 Zurück zum Dashboard", key="btn-back"):
         st.session_state.page = "dashboard"
+    st.markdown("</div>", unsafe_allow_html=True)
 
 def alle_reparaturen():
-    st.title("🔧 Alle Reparaturen")
-    st.write("Hier werden später alle Reparaturfälle angezeigt.")
-    if st.button("🔙 Zurück zum Dashboard"):
+    st.markdown(f'<img src="{NRC_LOGO_URL}" class="nrc-logo"/>', unsafe_allow_html=True)
+    st.markdown(f'<div class="nrc-overlay">', unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color:{ACCENT};text-align:center'>🔧 Alle Reparaturen</h2>", unsafe_allow_html=True)
+    if st.session_state.kunden:
+        st.write("**Gespeicherte Servicefälle:**")
+        st.table(st.session_state.kunden)
+    else:
+        st.info("Noch keine Servicefälle erfasst.")
+    if st.button("🔙 Zurück zum Dashboard", key="btn-back2"):
         st.session_state.page = "dashboard"
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # App starten
 if not st.session_state.logged_in:
